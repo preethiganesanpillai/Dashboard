@@ -38,10 +38,6 @@ const MovieDetails = () => {
     }
   };
 
-  const cardHoverHandler = () => {
-    setCardStyles(!cardStyles);
-  };
-
   if (isLoading) return <Typography>Loading movie details...</Typography>;
   if (error) return <Typography>Error loading movie details...</Typography>;
 
@@ -89,13 +85,6 @@ const MovieDetails = () => {
       boxShadow: 6,
     },
   }}
-  onMouseEnter={() => {
-    cardHoverHandler();
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.boxShadow = "none";
-  }}
-  raised={cardStyles}
 >
   {item.videoImage && (
     <Box component="img"
