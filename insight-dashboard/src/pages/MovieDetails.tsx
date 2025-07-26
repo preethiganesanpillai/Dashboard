@@ -20,7 +20,6 @@ const MovieDetails = () => {
   const { data, genres, isLoading, error } = useAssets();
   const [filteredData, setFilteredData] = useState<Asset[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
-  const [cardStyles, setCardStyles] = useState<boolean>(false);
 
   useEffect(() => {
     setFilteredData(data);
@@ -30,10 +29,12 @@ const MovieDetails = () => {
     const genre = event.target.value;
     setSelectedGenre(genre);
 
-    if (genre === "All") {
+    if (genre.toLowerCase() === "all") {
       setFilteredData(data);
     } else {
-      const filtered = data.filter((item) => item.genre?.includes(genre));
+      const filtered = data.filter((item) =>
+        item.genre?.map((g) => g.toLowerCase()).includes(genre.toLowerCase())
+      );
       setFilteredData(filtered);
     }
   };
@@ -73,64 +74,64 @@ const MovieDetails = () => {
               underline="none"
               sx={{ color: "inherit" }}
             >
-<Card
-  sx={{
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    cursor: "pointer",
-    transition: "box-shadow 0.3s ease",
-    boxShadow: 1,
-    "&:hover": {
-      boxShadow: 6,
-    },
-  }}
->
-  {item.videoImage && (
-    <Box component="img"
-      src={item.videoImage}
-      alt={item.name}
-      sx={{
-        width: '100%',
-        height: 180,
-        objectFit: 'cover',
-        borderTopLeftRadius: 4,
-        borderTopRightRadius: 4,
-      }}
-    />
-  )}
-  <CardContent>
-    <Stack spacing={1}>
-      <Typography variant="h5">{item.name}</Typography>
-      <Typography variant="subtitle2">
-        Views: {item.totalViews.total}
-      </Typography>
-      <Typography variant="body1">{item.description}</Typography>
-
-      {item.genre && (
-        <Box>
-          <Typography variant="subtitle2">Genre:</Typography>
-          <Stack direction="row" spacing={1} flexWrap="wrap">
-            {item.genre.map((genreType) => (
-              <Typography
-                key={genreType}
-                variant="body2"
+              <Card
                 sx={{
-                  bgcolor: "#e0e0e0",
-                  px: 1,
-                  borderRadius: 1,
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  cursor: "pointer",
+                  transition: "box-shadow 0.3s ease",
+                  boxShadow: 1,
+                  "&:hover": {
+                    boxShadow: 6,
+                  },
                 }}
               >
-                {genreType}
-              </Typography>
-            ))}
-          </Stack>
-        </Box>
-      )}
-    </Stack>
-  </CardContent>
-</Card>
+                {item.videoImage && (
+                  <Box
+                    component="img"
+                    src={item.videoImage}
+                    alt={item.name}
+                    sx={{
+                      width: "100%",
+                      height: 180,
+                      objectFit: "cover",
+                      borderTopLeftRadius: 4,
+                      borderTopRightRadius: 4,
+                    }}
+                  />
+                )}
+                <CardContent>
+                  <Stack spacing={1}>
+                    <Typography variant="h5">{item.name}</Typography>
+                    <Typography variant="subtitle2">
+                      Views: {item.totalViews.total}
+                    </Typography>
+                    <Typography variant="body1">{item.description}</Typography>
 
+                    {item.genre && (
+                      <Box>
+                        <Typography variant="subtitle2">Genre:</Typography>
+                        <Stack direction="row" spacing={1} flexWrap="wrap">
+                          {item.genre.map((genreType) => (
+                            <Typography
+                              key={genreType}
+                              variant="body2"
+                              sx={{
+                                bgcolor: "#e0e0e0",
+                                px: 1,
+                                borderRadius: 1,
+                              }}
+                            >
+                              {genreType}
+                            </Typography>
+                          ))}
+                        </Stack>
+                      </Box>
+                    )}
+                  </Stack>
+                </CardContent>
+              </Card>
             </Link>
           </Grid>
         ))}
