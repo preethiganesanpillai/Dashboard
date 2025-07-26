@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 type TimeSeriesData = {
   timestamp: string;
   value: number;
-  genre?: string;
 };
 
 const useTimeSeries = () => {
