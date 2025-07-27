@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 type TimeSeriesData = {
-  timestamp: string;
+  timestamp: number;
   value: number;
 };
 

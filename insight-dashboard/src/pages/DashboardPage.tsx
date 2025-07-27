@@ -26,7 +26,7 @@ const DashboardPage = () => {
             <XAxis dataKey="timestamp" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="value" stroke="#1976d2" strokeWidth={2} />
+            <Line type="monotone" dataKey="value" stroke="#145699ff" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </Paper>
